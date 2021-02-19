@@ -47,15 +47,17 @@ export default{
           this.$refs.loginForm.validate(async valid =>{
             if(!valid) return;
             var formData = new FormData();
+            // var url = "/sys/login/login";
+            var url= "/login/login";
             this.$http({
-                url: 'login/login',
+                url: url,
                 method:"post",
                 data:{
                     "userInfo":this.loginData
                 }
             }).then(res =>{
                     if(res.data && res.data.rtBody && res.data.rtBody.PCE_RETCODE== "0000000"){
-                      console.log(JSON.stringify(res.data.rtBody));
+                      //console.log(JSON.stringify(res.data.rtBody));
                       localStorage.setItem("x-auth-token",res.data.rtBody.token);
                        var userInfo = res.data.rtBody.userInfo;
                        var userObj = {};

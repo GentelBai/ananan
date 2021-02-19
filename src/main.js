@@ -9,8 +9,8 @@ import axios from 'axios'
 Vue.config.productionTip = false
 
 Vue.use(ElementUI)
+//const baseUrl = "http://localhost:9527/platform/";
 const baseUrl = "http://localhost:8004/";
-
 axios.interceptors.request.use(config =>{
         let token = localStorage.getItem("x-auth-token");
         if(token){

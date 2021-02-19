@@ -10,51 +10,6 @@
         background-color="#545c64"
         text-color="#fff"
         active-text-color="#ffd04b">
-        <!--<el-menu-item index="1">菜单栏</el-menu-item>-->
-        <!--<el-submenu index="1">
-            <template slot="title">
-                <i class="el-icon-user-solid"></i>
-                <span slot="title">用户管理</span>
-            </template>
-            <el-menu-item-group>
-                <el-menu-item index="1-1" @click="goto('/index/addUser')">
-                    <template>
-                        <i class="el-icon-tools"></i>
-                        <span>用户列表</span>
-                    </template>
-                </el-menu-item>
-                <el-menu-item index="1-2" @click="goto('/index/listUser')">
-                    <template>
-                        <i class="el-icon-tools"></i>
-                        <span>信息修改</span>
-                    </template>
-                </el-menu-item>
-                <el-menu-item index="1-3" @click="goto('/index/userPermission')">
-                    <template>
-                        <i class="el-icon-tools"></i>
-                        <span>权限设置</span>
-                    </template>
-                </el-menu-item>
-            </el-menu-item-group>
-        </el-submenu>
-        <el-submenu index="2">
-            <template slot="title">
-                <i class="el-icon-s-data"></i>
-                <span slot="title">数据管理</span>
-            </template>
-            <el-menu-item index="2-1" @click="goto('/index/dataCreate')">
-                <template>
-                    <i class="el-icon-tools"></i>
-                    <span>数据创建</span>
-                </template>
-            </el-menu-item>
-            <el-menu-item index="2-2" @click="goto('/index/dataShow')">
-                <template>
-                    <i class="el-icon-tools"></i>
-                    <span>数据预览</span>
-                </template>
-            </el-menu-item>
-        </el-submenu>-->
         <template v-for="(item,index) in menuList">
             <el-submenu
                 v-if="item.children && item.children.length"
@@ -96,8 +51,8 @@ export default{
 	data() {
       return {
         activeIndex: '1',
-        activeIndex2: '1',
-        menuList:menuList
+        activeIndex2: '1'
+        //menuList:menuList
       }
     },
     created(){
@@ -109,6 +64,20 @@ export default{
     methods: {
       handleSelect(key, keyPath) {
           //console.log(key, keyPath);
+          var _this = this;
+          var breadcrumb = [];
+          if(keyPath && keyPath.length == 3){
+              var str = keyPath[2];
+              var crumbArr = str.substring(str.lastIndexOf("#")+1).split("-");
+              crumbArr.map(function(val ,index,arr){
+                  if(index == 0) breadcrumb.push(_this.menuList[index].name);
+                  if(index == 1) 
+                  breadcrumb.push(_this.menuList[arr[0]]['children'][arr[2]].name);
+                  if(index == 2)
+                  breadcrumb.push(_this.menuList[arr[0]]['children'][arr[1]]['children'][arr[2]].name);
+              })
+          }
+          _this.$store.commit("setBreadcrumb",breadcrumb);
       },
       handleOpen(){
           //console.log(key, keyPath);
@@ -120,6 +89,11 @@ export default{
             //this.$router.replace(path);
            this.$router.push(path);
       }
+    },
+    computed:{
+        menuList(){
+            return this.$store.getters.getMenus;
+        }
     }
 }
 </script>
