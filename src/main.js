@@ -25,6 +25,7 @@ axios.interceptors.request.use(config =>{
         return Promise.reject(err);
     }
 )
+axios.defaults.baseURL='http://localhost:8080/'
 Vue.prototype.$http = axios
 new Vue({
   el: '#app',

@@ -1,5 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'  
+import userRegBody from '@/components/userReg/body.vue'
+import userRegHeader from '@/components/userReg/header.vue'
+import userRegFooter from '@/components/userReg/footer.vue'
 import loginHeader from '@/components/login/header.vue'
 import loginBody from '@/components/login/body.vue'
 import loginFooter from '@/components/login/footer.vue'
@@ -11,7 +14,6 @@ import listUser from '@/components/index/rightMain/listUser.vue'
 import userPermission from '@/components/index/rightMain/userPermission.vue'
 import dataCreate from '@/components/index/dataManage/dataCreate.vue'
 import err403 from '@/components/errPage/err403.vue'  
-
 import global from '@/componentsJS/moduleJS/global.js'
 Vue.use(Router)
 
@@ -34,6 +36,15 @@ const router = new Router({
         mainHeader:loginHeader,
         mainBody:loginBody,
         mainFooter:loginFooter
+      }
+    },
+    {
+      path: '/userReg',
+      name: 'userReg',
+      components: {
+        mainHeader:userRegHeader,
+        mainBody:userRegBody,
+        mainFooter:userRegFooter
       }
     },
     {
@@ -65,12 +76,12 @@ const router = new Router({
   ]
 })
 
-router.beforeEach((to , from ,next) => {
-    if(to.name !== 'login' && !global.validateLogon()){
-      if(from.name !== 'login')
-        next({name: 'login'})
-        return;
-    } 
-    next();
-})
+// router.beforeEach((to , from ,next) => {
+//     if(to.name !== 'login' && !global.validateLogon()){
+//       if(from.name !== 'login')
+//         next({name: 'login'})
+//         return;
+//     } 
+//     next();
+// })
 export default router;

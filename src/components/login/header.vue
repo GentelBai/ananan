@@ -1,5 +1,5 @@
 <template>
-  <el-header class="el-header-color">header</el-header>
+  <el-header class="el-header-color"></el-header>
 </template>
 <script>
 export default{
@@ -14,7 +14,5 @@ export default{
 }
 </script>
 <style>
-.el-header-color{
-  background-color:#b3c0d1;
-}
+
 </style>
