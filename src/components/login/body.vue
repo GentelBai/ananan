@@ -15,7 +15,6 @@
                       </el-form-item>
                       <el-form-item class="one">
                        <el-button type="success" class="Userlogin"  @click="userLogin">登 录</el-button>
- 
                       </el-form-item>
                   </el-form>
           </el-col>
