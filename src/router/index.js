@@ -84,4 +84,39 @@ const router = new Router({
 //     } 
 //     next();
 // })
+// router.beforeEach((to, from, next) => {
+//   //路由中设置的needLogin字段就在to当中 
+//   if(sessionStorage.getItem('token')){
+//     //console.log(to.path) //每次跳转的路径
+//     if(to.path === '/'){
+//       //登录状态下 访问login.vue页面 会跳到index.vue
+//       next({path: '/index'});
+//     }
+//     else{
+//       next();
+//     }
+//   }
+//   else{
+//     // 如果没有session ,访问任何页面。都会进入到 登录页
+//     if (to.path === '/') { // 如果是登录页面的话，直接next() -->解决注销后的循环执行bug
+//       next();
+//     } else { // 否则 跳转到登录页面
+//       next({ path: '/' });
+//     }
+//   }
+
+//   if (to.meta.title) {
+//     document.title = to.meta.title  //设置页面的title
+//   }
+
+//   if(to.fullPath == "/"){
+//     if(sessionStorage.getItem('data')){
+//       next({
+//         path:from.fullPath
+//       });
+//     }else {
+//       next();
+//     }
+//   }
+// })
 export default router;

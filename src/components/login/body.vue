@@ -13,9 +13,11 @@
                       <label slot="label">密&nbsp;&nbsp;&nbsp;码</label>
                         <el-input v-model="loginData.password" placeholder="密码" clearable prefix-icon="iconfont el-icon-unlock" show-password></el-input>
                       </el-form-item>
+                       <el-breadcrumb separator="/">
                       <el-form-item class="one">
-                       <el-button type="success" class="Userlogin"  @click="userLogin">登 录</el-button>
+                      <el-button type="success" class="userLogin"  @click="userLogin">登 录</el-button>
                       </el-form-item>
+                       </el-breadcrumb>
                   </el-form>
           </el-col>
       </el-row>
@@ -23,6 +25,7 @@
 </template>
 <script>
 export default{
+  
 	data() {
       return {
         input1: '',
@@ -46,17 +49,32 @@ export default{
       }
     },
     methods :{
+      
       userLogin(){
-        this.$refs.loginForm.validate(async valid=>{
-         if(!valid) return;
-        const {data: res}= await this.$http.post("login",this.loginData);
-        // console.log(result);
-        // if(res.meta.staus !==200)return this.$message.error("登录失败！");
-        // this.$message.success("登录成功!");
-        window.sessionStorage.getItem("token",res.data.token);
-        this.$router.push("/index");
-        });
+        let name ="1234";
+        let pass = "123456";
+        if(name == this.loginData.loginname){
+          if(pass == this.loginData.password){
+             this.$message.success("登录成功!");
+            this.$router.push("/index")
+          }else{
+           this.$message.error("登录失败！");
+          }
+        }
       }
+      // userLogin(){
+      //   // axios.get('/login').then(response=>{}),
+      //   this.$refs.loginForm.validate(async valid=>{
+      //    if(!valid) return;
+      //   const {data: res}= await this.$http.post("login",this.loginData);
+      //   console.log(result);
+      //   if(res.meta.status !==200)return this.$message.error("登录失败！");
+      //   this.$message.success("登录成功!");
+      //   window.sessionStorage.getItem("token",res.data.token);
+      //   this.$router.push("/index");
+      //   });
+      // }
+      
     }
    
 }
@@ -66,6 +84,7 @@ export default{
     border-radius: 81px;
     width: 600px;
      border: 1px solid #e9e9e9;
+     /* transform:translate(-50%,-50%) */
   }
   /* .bg-purple-dark {
     background: #99a9bf;
