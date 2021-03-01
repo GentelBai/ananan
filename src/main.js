@@ -38,7 +38,7 @@ Vue.use(ElementUI)
 //         return Promise.reject(err);
 //     }
 // )
-axios.defaults.baseURL ="http://localhost:8080/";
+axios.defaults.baseURL ="http://localhost:8004/";
 axios.interceptors.request.use(config =>{
     console.log(config)
     config.headers.Authorization = window.sessionStorage.getItem('token')
