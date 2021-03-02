@@ -9,12 +9,13 @@ import loginFooter from '@/components/login/footer.vue'
 import indexHeader from '@/components/index/header.vue'
 import indexBody from '@/components/index/body.vue'
 import indexFooter from '@/components/index/footer.vue'
-import addUser from '@/components/index/rightMain/addUser.vue'
+// import addUser from '@/components/index/rightMain/addUser.vue'
 import listUser from '@/components/index/rightMain/listUser.vue'
 import userPermission from '@/components/index/rightMain/userPermission.vue'
 import dataCreate from '@/components/index/dataManage/dataCreate.vue'
 import err403 from '@/components/errPage/err403.vue'  
 import global from '@/componentsJS/moduleJS/global.js'
+import Rights from '@/components/power/Rights.vue'
 Vue.use(Router)
 
 const originalPush = Router.prototype.push;
@@ -64,13 +65,14 @@ const router = new Router({
         mainFooter:indexFooter
       },
       children: [
-        { path:'user/list',name:'listUser',components:{rightMain:listUser}},
-        { path:'user/details',name:'detailsUser',components:{rightMain:listUser}},
-        { path:'user/add',name:'addUser',components:{rightMain:addUser}},
-        { path:'user/edit',name:'editUser',components:{rightMain:listUser}},
-        { path:'userPermission',name:'userPermission',components:{rightMain:userPermission}},
-        { path:'dataCreate',name:'dataCreate',components:{rightMain:dataCreate}},
-        { path:'dataShow',name:'dataShow',components:{rightMain:err403}}
+        { path:'user/list',name:'listUser',components:listUser},
+        { path:'user/details',name:'detailsUser',components:listUser},
+        // { path:'user/add',name:'addUser',components:{rightMain:addUser}},
+        { path:'user/edit',name:'editUser',components:listUser},
+        { path:'userPermission',name:'userPermission',components:userPermission},
+        { path:'dataCreate',name:'dataCreate',components:dataCreate},
+        { path:'dataShow',name:'dataShow',components:err403},
+        { path:'rights',name:'rights',components:Rights},
       ]
     }
   ]

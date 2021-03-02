@@ -4,11 +4,18 @@
          <el-menu
       background-color="#545c64"
       text-color="#fff"
-      active-text-color="#ffd04b">
-       <el-menu-item index="2">
-        <i class="el-icon-user"></i>
-        <span slot="title">个人信息</span>
-      </el-menu-item>
+      active-text-color="#ffd04b" v-for="(item,index) in list" :key="item.id">
+      <el-submenu :index ="index + ''" >
+        <template slot="title">
+         <i class="el-icon-location"></i>
+          <span>{{item.name}}</span>
+        </template>
+           <el-menu-item-group>
+          <el-menu-item v-for="(jtem,jndex) in item.children" :key="jtem.id" :index='(index-jndex)'>
+            {{jtem.name}}
+          </el-menu-item>
+          </el-menu-item-group>
+      </el-submenu>
     </el-menu>
       </el-aside>
       <el-main class="rightContainer">
@@ -62,7 +69,7 @@
                     :total="total">
                   </el-pagination>
               </el-card>
-              <!-- 添加用户的输入框 -->
+              <!-- 添加用户的输入框-->
               <el-dialog
                 title="添加用户"
                 :visible.sync="addDialogVisible"
@@ -112,7 +119,7 @@
     </el-container>
 </template>
 <script>
-import leftMenu from "../assembly/leftMenu.vue"
+import menuList from "@/router/menuTest"
 export default{
     data() {
       //邮箱验证
@@ -131,21 +138,22 @@ export default{
         cb(new Error("请输入正确的手机号"))
       }
       return {
+        list:[], 
         queryInfo:{
           query:'',
           pagenum:1,
           pagesize:2
         },
         userlist:[],
+        menuList:[], 
         total:0,
         addDialogVisible:false,
         addForm:{
           username:"",
           mobile:"",
           email:'',
-
         },
-        addFormrules:{
+        addFormRules:{
         username:[{required:true,message:"请输入用户名",trigger:"blur"},
         {min:3,mix:10,message:'用户名的长度在3到10个字符之间',trigger:"blur"}
         ],
@@ -175,11 +183,11 @@ export default{
             {min:6,mix:12,message:'邮箱的长度在3到10个字符之间',trigger:"blur"},
             {validator:checkEmail,trigger:"blur"}
             ],
-
         }
       }
     },
      created(){
+       this.list = menuList;
       this.getUserList()
     },
     methods:{ 
@@ -269,7 +277,12 @@ export default{
             }
             this.$http.message.success("删除用户成功");
             this.getUserList();
-      }
+      },
+      // async getMenuList(){
+      //   const {data: res} = await this.$http.get('menu');
+      //   if(res.meta.status !==200) return this.$message.error(this.meta.msg)
+      //   this.menulist = res.data;
+      // }
     },
     
     computed:{

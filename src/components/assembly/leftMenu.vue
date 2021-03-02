@@ -46,7 +46,7 @@
     </el-menu>
 </template>
 <script>
-import menuList from "../../router/menuTest.js";
+import menuList from "../../router/menuTest"
 export default{
 	data() {
       return {
